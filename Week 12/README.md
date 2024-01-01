@@ -1,4 +1,4 @@
-# CASE STUDY 2: SOFT SENSOR
+# CASE STUDY 2: QUALITY CONTROL
 
 ### Objectives
 

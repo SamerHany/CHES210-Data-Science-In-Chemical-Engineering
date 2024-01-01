@@ -6,4 +6,4 @@
 - Pseudocode
 
 ### YouTube video:
-hhttps://youtu.be/ky7b3AlAr0k
+https://youtu.be/ky7b3AlAr0k
