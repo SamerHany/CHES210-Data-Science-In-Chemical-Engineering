@@ -4,8 +4,7 @@ from dash import Dash, dcc, html
 from dash.dependencies import Input, Output
 from plotly import express as px
 import joblib
-import dash_auth
-
+from dash_auth import BasicAuth
 
 # STEP 2: create a Dash app
 app = Dash(__name__)
@@ -13,10 +12,9 @@ app = Dash(__name__)
 # add authentication
 USERNAME_PASSWORD_PAIRS = {
     'user1': '1234',
-    'user2': '5678',
+    'user2': '5678'
 }
-auth = dash_auth.BasicAuth(app, USERNAME_PASSWORD_PAIRS)
-
+auth = BasicAuth(app, USERNAME_PASSWORD_PAIRS)
 
 # STEP 3: load & process data
 data = pd.read_csv("CO2_Emissions_Canada.csv")
@@ -37,7 +35,6 @@ fuel_types = [
     {'label': 'Gasoline', 'value': 'X'}, 
     {'label': 'Premium Gasoline', 'value': 'Z'}
 ]
-
 
 # STEP 4: create a Dash layout that contains a Dropdown component
 html_title = html.H1("CO2 Emissions in Canada", style={
@@ -142,7 +139,6 @@ html_prediction = html.Div([
     'flex-basis': '50%',
 })
 
-
 # add components to the app layout
 app.layout = html.Div([
     # title
@@ -182,7 +178,6 @@ app.layout = html.Div([
     }),
 ])
 
-
 # STEP 5: add callbacks for interactive components
 @app.callback(
     Output(component_id='plot-num', component_property='figure'),
@@ -192,8 +187,6 @@ def update_graph_num(selected_feature):
     fig = px.scatter(data, x=selected_feature, y='CO2 Emissions [g/km]')
     return fig
 
-
-
 # add a callback to update the CAT graph
 @app.callback(
     Output(component_id='plot-cat', component_property='figure'),
@@ -202,7 +195,6 @@ def update_graph_num(selected_feature):
 def update_graph_cat(selected_feature):
     fig = px.box(data, x=selected_feature, y='CO2 Emissions [g/km]')
     return fig
-
 
 # add a callback to update the prediction
 @app.callback(
@@ -222,7 +214,6 @@ def update_prediction(fuel_type, engine_size, fuel_consumption_comb):
     })
     pred = model.predict(df)[0]
     return f'{pred:.2f} g/km'
-
 
 # STEP 6: run the Dash app
 if __name__ == '__main__':
